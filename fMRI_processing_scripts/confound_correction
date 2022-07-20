@@ -1,0 +1,28 @@
+#!/bin/bash
+
+start=$SECONDS
+
+#manage directories
+bids_folder=/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks
+project_folder=/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1
+preprocess_folder=${project_folder}/preprocess_outputs
+confound_cor_folder=${project_folder}/confound_cor_outputs
+
+if [ -d ${confound_cor_folder} ]; then
+        rm -r ${confound_cor_folder}
+fi
+
+mkdir ${confound_cor_folder}
+
+#confound correction
+singularity run -B ${bids_folder}:/input_BIDS:ro \
+-B ${preprocess_folder}:/preprocess_outputs/ \
+-B ${confound_cor_folder}:/confound_correction_outputs/ \
+/mnt/paros_WORK/daniel/fMRI/rabies.sif -p MultiProc confound_correction /preprocess_outputs/ /confound_correction_outputs/ \
+--conf_list WM_signal CSF_signal vascular_signal mot_6 --smoothing_filter 0.3
+
+cp /mnt/paros_WORK/daniel/project/confound_correction ${project_folder}/confound_cor.txt
+
+duration=$(( SECONDS - start ))
+echo "Duration: ${duration} seconds" >> ${project_folder}/confound_cor.txt
+echo "Duration: ${duration} seconds"

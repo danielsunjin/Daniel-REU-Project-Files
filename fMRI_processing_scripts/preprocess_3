@@ -1,0 +1,28 @@
+#!/bin/bash
+
+start=$SECONDS
+
+#manage directories
+bids_folder=/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks
+project_folder=/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1
+preprocess_folder=${project_folder}/preprocess_outputs
+
+if [ -d ${project_folder} ]; then
+        rm -r ${project_folder}
+fi
+
+mkdir ${project_folder}
+mkdir ${preprocess_folder}
+
+#preprocessing
+singularity run -B ${bids_folder}:/input_BIDS:ro \
+-B ${preprocess_folder}:/preprocess_outputs/ \
+/mnt/paros_WORK/daniel/fMRI/rabies.sif -p MultiProc preprocess /input_BIDS/ /preprocess_outputs/ \
+--commonspace_masking \
+--coreg_masking
+
+cp /mnt/paros_WORK/daniel/project/preprocess_3 ${project_folder}/preprocess.txt
+
+duration=$(( SECONDS - start ))
+echo "Duration: ${duration} seconds" >> ${project_folder}/preprocess.txt
+echo "Duration: ${duration} seconds"

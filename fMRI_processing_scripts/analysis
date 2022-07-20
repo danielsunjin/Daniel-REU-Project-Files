@@ -1,0 +1,30 @@
+#!/bin/bash
+
+start=$SECONDS
+
+#manage directories
+bids_folder=/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks
+project_folder=/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1
+preprocess_folder=${project_folder}/preprocess_outputs
+confound_cor_folder=${project_folder}/confound_cor_outputs
+analysis_folder=${project_folder}/analysis_outputs
+
+if [ -d ${analysis_folder} ]; then
+        rm -r ${analysis_folder}
+fi
+
+mkdir ${analysis_folder}
+
+#analysis
+singularity run -B ${bids_folder}:/input_BIDS:ro \
+-B ${preprocess_folder}:/preprocess_outputs/ \
+-B ${confound_cor_folder}:/confound_correction_outputs/ \
+-B ${analysis_folder}:/analysis_outputs/ \
+/mnt/paros_WORK/daniel/fMRI/rabies.sif -p MultiProc analysis /confound_correction_outputs /analysis_outputs/ \
+--FC_matrix
+
+cp /mnt/paros_WORK/daniel/project/analysis ${project_folder}/analysis.txt
+
+duration=$(( SECONDS - start ))
+echo "Duration: ${duration} seconds" >> ${project_folder}/analysis.txt
+echo "Duration: ${duration} seconds"

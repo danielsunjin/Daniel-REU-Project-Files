@@ -1,0 +1,46 @@
+#!/bin/bash
+
+start=$SECONDS
+
+# paths to input and output directories
+input_dir=/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented
+output_dir=/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_2
+python_split_echo_script=/mnt/paros_WORK/daniel/project/split_echo.py
+
+# create output directory
+if [ -d ${output_dir} ]; then
+        rm -r ${output_dir}
+fi
+
+mkdir ${output_dir}
+
+for dir in ${input_dir}/*; do
+	subject=$(basename ${dir})
+	echo "starting processing for ${subject}"
+	cp -r ${dir} ${output_dir}
+  	rm -r ${output_dir}/${subject}/ses-1/func
+  	mkdir ${output_dir}/${subject}/ses-1/func
+
+  	for func in ${input_dir}/${subject}/ses-1/func/*; do
+    		imgname=$(basename ${func})
+		echo "starting processing for ${imgname}"
+    		split_echos_dir=${output_dir}/${subject}/ses-1/func/split_echos
+    		mkdir ${split_echos_dir}
+
+		ThresholdImage 3 ${func} ${split_echos_dir}/mask.nii.gz 0 1000000
+    		python3 ${python_split_echo_script} ${func} ${split_echos_dir}
+
+    		tedana_out_dir=${output_dir}/${subject}/ses-1/func/tedana_outputs
+    		mkdir ${tedana_out_dir}
+    		tedana -d ${split_echos_dir}/echo_1.nii.gz ${split_echos_dir}/echo_2.nii.gz ${split_echos_dir}/echo_3.nii.gz -e 5.0 19.315 33.63 --mask ${split_echos_dir}/mask.nii.gz --out-dir ${tedana_out_dir}
+
+    		cp ${tedana_out_dir}/desc-optcom_bold.nii.gz ${output_dir}/${subject}/ses-1/func/${imgname}
+
+    		rm -r ${split_echos_dir}
+    		rm -r ${tedana_out_dir}
+	done
+done
+
+duration=$(( SECONDS - start ))
+echo ${duration}
+

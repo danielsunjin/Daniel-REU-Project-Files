@@ -1,0 +1,71 @@
+#!/bin/bash
+
+start=$SECONDS
+
+# paths to input and output directories
+lab_data=/mnt/paros_WORK/daniel/project/BRUKER_data_full_organized_new
+lab_data_reoriented=/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented
+
+# desired orientations
+new_anat_orientation="RAI"
+new_func_orientation="RAS"
+
+# create output directory
+if [ -d ${lab_data_reoriented} ]; then
+	rm -r ${lab_data_reoriented}
+fi
+
+mkdir ${lab_data_reoriented}
+
+# iterate through subjects
+for dir in ${lab_data}/*; do
+	subject=$(basename ${dir})
+	echo "starting processing for subject ${subject}"
+	mkdir ${lab_data_reoriented}/${subject}
+	mkdir ${lab_data_reoriented}/${subject}/ses-1
+	mkdir ${lab_data_reoriented}/${subject}/ses-1/anat
+	mkdir ${lab_data_reoriented}/${subject}/ses-1/func	
+
+	echo "processing anat for subject ${subject}"
+	# reorient anat image
+	files=(${dir}/ses-1/anat/*)
+	c3d ${files[0]} -orient ${new_anat_orientation} -o ${lab_data_reoriented}/${subject}/ses-1/anat/${subject}_ses-1_T1w.nii.gz
+
+	echo "processing func for subject ${subject}"
+	# reorient func images
+	counter_1=1
+	for func in ${dir}/ses-1/func/*; do
+		disassembly_outputs=${lab_data_reoriented}/${subject}/ses-1/func/disassembly_outputs
+		reorient_outputs=${lab_data_reoriented}/${subject}/ses-1/func/reorient_outputs
+		
+		mkdir ${disassembly_outputs}
+		mkdir ${reorient_outputs}
+		
+		echo "disassembling func ${counter_1} for subject ${subject}"	
+		ImageMath 4 ${disassembly_outputs}/split.nii.gz TimeSeriesDisassemble ${func}
+
+		counter_2=0
+		
+		echo "reorienting components of func ${counter_1} for subject ${subject}"
+		for file in ${disassembly_outputs}/*; do
+			printf -v j "%04d" $counter_2
+			c3d ${file} -orient ${new_func_orientation} -o ${reorient_outputs}/reorient_${j}.nii.gz
+			let "counter_2++"
+		done
+		
+		time_spacing=$(fslval ${func} pixdim4)
+		time_origin=0
+		
+		echo "time spacing = ${time_spacing}"
+		echo "time origin = ${time_origin}"
+		echo "reassembling func ${counter_1} for subject ${subject}"
+		ImageMath 4 ${lab_data_reoriented}/${subject}/ses-1/func/${subject}_ses-1_run-${counter_1}_bold.nii.gz TimeSeriesAssemble ${time_spacing} ${time_origin} ${reorient_outputs}/*
+		let "counter_1++"
+
+		rm -r ${disassembly_outputs}
+		rm -r ${reorient_outputs}
+	done
+done
+
+duration=$(( SECONDS - start ))
+echo ${duration}

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+start=$SECONDS
+
+#manage directories
+bids_folder=/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks
+project_folder=/mnt/paros_WORK/daniel/project/pipeline_chass_atlas
+preprocess_folder=${project_folder}/preprocess_outputs
+template_folder=/mnt/paros_WORK/daniel/project/chass_symmetric3
+
+if [ -d ${project_folder} ]; then
+        rm -r ${project_folder}
+fi
+
+mkdir ${project_folder}
+mkdir ${preprocess_folder}
+
+#preprocessing
+singularity run -B ${template_folder}:/template/ -B ${bids_folder}:/input_BIDS:ro -B ${preprocess_folder}:/preprocess_outputs/ \
+/mnt/paros_WORK/daniel/fMRI/rabies.sif -p MultiProc preprocess /input_BIDS/ /preprocess_outputs/ \
+--anat_template /template/chass_symmetric3_DWI.nii.gz \
+--brain_mask /template/chass_symmetric3_mask.nii.gz \
+--labels /template/chass_symmetric3_labels.nii.gz \
+--commonspace_masking \
+--coreg_masking
+
+cp /mnt/paros_WORK/daniel/project/preprocess ${project_folder}/preprocess.txt
+
+duration=$(( SECONDS - start ))
+echo "Duration: ${duration} seconds" >> ${project_folder}/preprocess.txt
+echo "Duration: ${duration} seconds"
