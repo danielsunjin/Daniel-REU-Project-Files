@@ -1,0 +1,430 @@
+---
+title: "APOE22 analysis"
+author: "Daniel Jin"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r APOE22-day-0}
+
+subjects = c('220404_1', '220404_2', '220404_4', '220404_5', '220404_6', '220404_8', '220404_9', '220404_10', '220404_11', '220404_13', '220509_1', '220509_4', '220509_12', '220509_13', '220509_14')
+
+count <- all_day1 %>% 
+  filter(Animal_ID %in% subjects) %>%
+  mutate(Age = case_when(
+    Age_Handling < 16 ~ "12 months",
+    Age_Handling >= 16 ~ "18 months"
+  )) %>%
+  mutate(Sex = case_when(
+    Sex == 'female' ~ 'Female',
+    Sex == 'male' ~ 'Male',
+    Sex == 'female ' ~ 'Female',
+    Sex == 'male ' ~ 'Male'
+  )) %>%
+  select(Age, Sex, Treatment) %>%
+  group_by(Age, Sex, Treatment) %>% 
+  summarise(n=n())
+write.csv(count, "/Users/daniel/Downloads/count.csv", row.names = FALSE)
+
+day0_APOE22_relevant_data <- all_day0 %>% 
+  filter(Animal_ID %in% subjects) %>%
+  mutate(Time = case_when(
+    Component.Name == 'Sound 1' ~ 1,
+    Component.Name == 'Shock 1' ~ 0,
+    Component.Name == 'Sound 2' ~ 2,
+    Component.Name == 'Shock 2' ~ 0,
+    Component.Name == 'Sound 3' ~ 3,
+    Component.Name == 'Shock 3' ~ 0
+  )) %>% 
+  filter(Time != 0 ) %>% 
+  mutate(Age = case_when(
+    Age_Handling < 16 ~ "12 months",
+    Age_Handling >= 16 ~ "18 months"
+  )) %>%
+  mutate(Sex = case_when(
+    Sex == 'female' ~ 'Female',
+    Sex == 'male' ~ 'Male',
+    Sex == 'female ' ~ 'Female',
+    Sex == 'male ' ~ 'Male'
+  )) %>%
+  select(Animal_ID, Time, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+
+day0_APOE22_age_sex_treatment <- day0_APOE22_relevant_data %>%
+  select(Age, Sex, Treatment, Time, Pct.Total.Time.Freezing) %>%
+  mutate(Treatment = case_when(
+    Treatment == 'Control' ~ 'Control Diet',
+    Treatment == 'HFD' ~ 'High Fat Diet'
+  )) %>%
+  group_by(Age, Sex, Treatment, Time) %>% 
+  summarise(n=n(),
+            se = sd(Pct.Total.Time.Freezing, na.rm=TRUE)/sqrt(n),
+            len = mean(Pct.Total.Time.Freezing))
+
+ggplot(data = day0_APOE22_age_sex_treatment, aes(x = Time, y = len, color = Age)) +
+  geom_line() +
+  facet_grid(Sex~Treatment)  + 
+  geom_errorbar(aes(ymin = len - se, ymax = len + se), width = 0.2, size = 0.5) +
+  theme_bw() + 
+  labs(title = 'Day 0 Learning Curves for APOE22 Mice by Treatment, Sex, and Age', x = 'Sound Component (92 Seconds Apart)', y = 'Mean Percent Time Freezing (Seconds)') +
+  scale_x_continuous(breaks = c(1, 2, 3))  
+
+ggsave(
+  filename = "/Users/daniel/Downloads/day0.png",
+  plot = last_plot(),
+  dpi = 300
+)
+
+day0_APOE22_age <- day0_APOE22_relevant_data %>%
+  select(Age, Time, Pct.Total.Time.Freezing) %>%
+  group_by(Age, Time) %>% 
+  summarise(n=n(),
+            se = sd(Pct.Total.Time.Freezing, na.rm=TRUE)/sqrt(n),
+            len = mean(Pct.Total.Time.Freezing))
+
+ggplot(data = day0_APOE22_age, aes(x = Time, y = len, color = Age)) +
+  geom_line() +
+  geom_errorbar(aes(ymin = len - se, ymax = len + se), width = 0.2, size = 0.5) +
+  theme_bw() + 
+  labs(title = 'Day 0 Learning Curves for APOE22s by Age', x = 'Sound Component', y = 'Mean Percent Time Freezing') +
+  scale_x_continuous(breaks = c(1, 2, 3))  
+
+day0_APOE22_sex <- day0_APOE22_relevant_data %>%
+  select(Sex, Time, Pct.Total.Time.Freezing) %>%
+  group_by(Sex, Time) %>% 
+  summarise(n=n(),
+            se = sd(Pct.Total.Time.Freezing, na.rm=TRUE)/sqrt(n),
+            len = mean(Pct.Total.Time.Freezing))
+
+ggplot(data = day0_APOE22_sex, aes(x = Time, y = len, color = Sex)) +
+  geom_line() +
+  geom_errorbar(aes(ymin = len - se, ymax = len + se), width = 0.2, size = 0.5) +
+  theme_bw() + 
+  labs(title = 'Day 0 Learning Curves for APOE22s by Sex', x = 'Sound Component', y = 'Mean Percent Time Freezing') +
+  scale_x_continuous(breaks = c(1, 2, 3))  
+
+day0_APOE22_treatment <- day0_APOE22_relevant_data %>%
+  select(Treatment, Time, Pct.Total.Time.Freezing) %>%
+  group_by(Treatment, Time) %>% 
+  summarise(n=n(),
+            se = sd(Pct.Total.Time.Freezing, na.rm=TRUE)/sqrt(n),
+            len = mean(Pct.Total.Time.Freezing))
+
+ggplot(data = day0_APOE22_treatment, aes(x = Time, y = len, color = Treatment)) +
+  geom_line() +
+  geom_errorbar(aes(ymin = len - se, ymax = len + se), width = 0.2, size = 0.5) +
+  theme_bw() + 
+  labs(title = 'Day 0 Learning Curves for APOE22s by Treatment', x = 'Sound Component', y = 'Mean Percent Time Freezing') +
+  scale_x_continuous(breaks = c(1, 2, 3))  
+
+day0_lmer1 <- lmer(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment)*Time+(1|Animal_ID), day0_APOE22_relevant_data)
+anova(day0_lmer1)
+day0_anova <- as.data.frame(anova(day0_lmer1))
+write.csv(day0_anova, "/Users/daniel/Downloads/day0_anova.csv", row.names = TRUE)
+emmeans(day0_lmer1, list(pairwise ~ factor(Age)*factor(Sex)*factor(Treatment)), adjust="tukey")
+
+```
+
+```{r APOE22-day-1}
+
+day1_APOE22_relevant_data <- all_day1 %>% 
+  filter(Animal_ID %in% subjects) %>%
+  mutate(Age = case_when(
+    Age_Handling < 16 ~ "12 months",
+    Age_Handling >= 16 ~ "18 months"
+  )) %>%
+  mutate(Sex = case_when(
+    Sex == 'female' ~ 'Female',
+    Sex == 'male' ~ 'Male',
+    Sex == 'female ' ~ 'Female',
+    Sex == 'male ' ~ 'Male'
+  )) %>%
+  select(Animal_ID, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+
+ggplot(data = day1_APOE22_relevant_data, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Sex~Treatment) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 1 Contextual Test for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+dodge <- position_dodge(width = 0.9)
+day1_APOE22_relevant_data %>% 
+  mutate(Treatment = case_when(
+    Treatment == 'Control' ~ 'Control Diet',
+    Treatment == 'HFD' ~ 'High Fat Diet'
+  )) %>%
+  ggplot(aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_point(position=position_jitterdodge(), aes(color = Sex)) +
+  #geom_jitter(height = 0, width = 0.2, aes(group = Sex, color = Sex)) +
+  labs(title='Day 1 Contextual Test for APOE22 Mice by Treatment, Sex, and Age', y = 'Percent Freezing Time (Seconds)', x='Age')
+
+ggplot(data = day1_APOE22_relevant_data, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 1 Contextual Test for APOE22s by Treatment and Sex', y = 'Percent Freezing Time', x='Age')
+
+ggplot(data = day1_APOE22_relevant_data, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 1 Contextual Test for APOE22s by Age', y = 'Percent Freezing Time', x='Age')
+
+ggplot(data = day1_APOE22_relevant_data, aes(factor(Sex), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Sex), alpha = 0.25) +
+  labs(title='Day 1 Contextual Test for APOE22s by Sex', y = 'Percent Freezing Time', x='Age')
+
+ggplot(data = day1_APOE22_relevant_data, aes(factor(Treatment), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  geom_jitter(height = 0, width = 0.3, aes(color = Treatment), alpha = 0.25) +
+  labs(title='Day 1 Contextual Test for APOE22s by Treatment', y = 'Percent Freezing Time', x='Age')
+
+day1_lm1 <- lm(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment), day1_APOE22_relevant_data)
+anova(day1_lm1)
+day1_anova <- as.data.frame(anova(day1_lm1))
+write.csv(day1_anova, "/Users/daniel/Downloads/day1_anova.csv", row.names = TRUE)
+emmeans(day1_lm1, list(pairwise ~ factor(Age)*factor(Sex)*factor(Treatment)), adjust="tukey")
+emmeans(day1_lm1, list(pairwise ~ factor(Age)*factor(Sex)|factor(Treatment)), adjust="tukey")
+
+```
+
+```{r APOE22-day-2}
+
+day2_APOE22_relevant_data <- all_day2 %>% 
+  filter(Animal_ID %in% subjects) %>%
+  mutate(Component = case_when(
+    Component.Name == 'Day2_Acclimation' ~ '1: Pre-Tone',
+    Component.Name == 'Day2_CSTone' ~ '2: Tone',
+    Component.Name == 'Day2_Exploration' ~ '3: Post-Tone'
+  )) %>%
+  mutate(Age = case_when(
+    Age_Handling < 16 ~ "12 months",
+    Age_Handling >= 16 ~ "18 months"
+  )) %>%
+  mutate(Sex = case_when(
+    Sex == 'female' ~ 'Female',
+    Sex == 'male' ~ 'Male',
+    Sex == 'female ' ~ 'Female',
+    Sex == 'male ' ~ 'Male'
+  )) %>%
+  select(Animal_ID, Component, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+  
+ggplot(data = day2_APOE22_relevant_data, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Treatment~Component) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 2 Data for APOE22s by Age and Treatment', y = 'Percent Freezing Time', x='Age')
+
+ggplot(data = day2_APOE22_relevant_data, aes(factor(Sex), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Treatment~Component) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Sex), alpha = 0.25) +
+  labs(title='Day 2 Data for APOE22s by Sex and Treatment', y = 'Percent Freezing Time', x='Age')
+
+ggplot(data = day2_APOE22_relevant_data, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Treatment~Component) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 2 Data for APOE22s by Age and Treatment', y = 'Percent Freezing Time', x='Age')
+
+pretone <- day2_APOE22_relevant_data %>%
+  filter(Component == '1: Pre-Tone')
+
+ggplot(data = pretone, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Sex~Treatment) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 2 Pre-Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+tone <- day2_APOE22_relevant_data %>%
+  filter(Component == '2: Tone')
+
+ggplot(data = tone, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Sex~Treatment) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 2 Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+posttone <- day2_APOE22_relevant_data %>%
+  filter(Component == '3: Post-Tone')
+
+ggplot(data = posttone, aes(factor(Age), Pct.Total.Time.Freezing)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  theme_bw() +
+  facet_grid(Sex~Treatment) + 
+  geom_jitter(height = 0, width = 0.3, aes(color = Age), alpha = 0.25) +
+  labs(title='Day 2 Post-Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+dodge <- position_dodge(width = 0.4)
+ggplot(data = pretone, aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_jitter(height = 0, width = 0.05, aes(color = Sex)) +
+  labs(title='Day 2 Pre-Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+dodge <- position_dodge(width = 0.9)
+pretone %>% 
+  mutate(Treatment = case_when(
+    Treatment == 'Control' ~ 'Control Diet',
+    Treatment == 'HFD' ~ 'High Fat Diet'
+  )) %>%
+  ggplot(aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_point(position=position_jitterdodge(), aes(color = Sex)) +
+  #geom_jitter(height = 0, width = 0.2, aes(group = Sex, color = Sex)) +
+  labs(title='Day 2 Pre-Tone Data for APOE22 Mice by Treatment, Sex, and Age', y = 'Percent Freezing Time (Seconds)', x='Age')
+
+dodge <- position_dodge(width = 0.4)
+ggplot(data = tone, aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_jitter(height = 0, width = 0.05, aes(color = Sex)) +
+  labs(title='Day 2 Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+dodge <- position_dodge(width = 0.9)
+tone %>% 
+  mutate(Treatment = case_when(
+    Treatment == 'Control' ~ 'Control Diet',
+    Treatment == 'HFD' ~ 'High Fat Diet'
+  )) %>%
+  ggplot(aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_point(position=position_jitterdodge(), aes(color = Sex)) +
+  #geom_jitter(height = 0, width = 0.2, aes(group = Sex, color = Sex)) +
+  labs(title='Day 2 Tone Data for APOE22 Mice by Treatment, Sex, and Age', y = 'Percent Freezing Time (Seconds)', x='Age')
+
+dodge <- position_dodge(width = 0.4)
+ggplot(data = posttone, aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_jitter(height = 0, width = 0.05, aes(color = Sex)) +
+  labs(title='Day 2 Post-Tone Data for APOE22s by Treatment, Sex, and Age', y = 'Percent Freezing Time', x='Age')
+
+dodge <- position_dodge(width = 0.9)
+posttone %>% 
+  mutate(Treatment = case_when(
+    Treatment == 'Control' ~ 'Control Diet',
+    Treatment == 'HFD' ~ 'High Fat Diet'
+  )) %>%
+  ggplot(aes(fill = Sex, x = factor(Age), y = Pct.Total.Time.Freezing)) +
+  geom_violin(position = dodge, alpha = 0.25) +
+  geom_boxplot(width = 0.1, position = dodge, alpha = 0.25) +
+  theme_bw() +
+  facet_grid(.~Treatment) + 
+  geom_point(position=position_jitterdodge(), aes(color = Sex)) +
+  #geom_jitter(height = 0, width = 0.2, aes(group = Sex, color = Sex)) +
+  labs(title='Day 2 Post-Tone Data for APOE22 Mice by Treatment, Sex, and Age', y = 'Percent Freezing Time (Seconds)', x='Age')
+
+day2_lmer1 <- lmer(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment)*Component+(1|Animal_ID), day2_APOE22_relevant_data)
+anova(day2_lmer1)
+emmeans(day2_lmer1, list(pairwise ~ (factor(Age)*factor(Sex)*factor(Treatment))|Component), adjust="tukey")
+
+day2_APOE22_relevant_data_within_pretone <- day2_APOE22_relevant_data %>%
+  filter(Component == '1: Pre-Tone') %>%
+  select(Animal_ID, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+
+day2_lm1 <- lm(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment), day2_APOE22_relevant_data_within_pretone)
+anova(day2_lm1)
+day2_anova1 <- as.data.frame(anova(day2_lm1))
+write.csv(day2_anova1, "/Users/daniel/Downloads/day2_anova.csv", row.names = TRUE)
+emmeans(day2_lm1, list(pairwise ~ factor(Age)*factor(Sex)), adjust="tukey")
+
+day2_APOE22_relevant_data_within_tone <- day2_APOE22_relevant_data %>%
+  filter(Component == '2: Tone') %>%
+  select(Animal_ID, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+
+day2_lm2 <- lm(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment), day2_APOE22_relevant_data_within_tone)
+anova(day2_lm2)
+day2_anova2 <- as.data.frame(anova(day2_lm2))
+write.csv(day2_anova2, "/Users/daniel/Downloads/day2_anova2.csv", row.names = TRUE)
+emmeans(day2_lm2, list(pairwise ~ factor(Sex)*factor(Age)*factor(Treatment)), adjust="tukey")
+posthoc1 <- na.omit(as.data.frame(emmeans(day2_lm2, list(pairwise ~ factor(Sex)*factor(Age)*factor(Treatment)), adjust="tukey")$`pairwise differences of Sex, Age, Treatment`)) 
+write.csv(posthoc1, "/Users/daniel/Downloads/day2_posthoc1.csv", row.names = TRUE)
+emmeans(day2_lm2, list(pairwise ~ factor(Sex)*factor(Age)|factor(Treatment)), adjust="tukey")
+posthoc2 <- na.omit(as.data.frame(emmeans(day2_lm2, list(pairwise ~ factor(Sex)*factor(Age)|factor(Treatment)), adjust="tukey")$`pairwise differences of Sex, Age | Treatment`)) 
+write.csv(posthoc2, "/Users/daniel/Downloads/day2_posthoc2.csv", row.names = TRUE)
+emmeans(day2_lm2, list(pairwise ~ factor(Sex)|factor(Treatment)*factor(Age)), adjust="tukey")
+
+day2_APOE22_relevant_data_within_posttone <- day2_APOE22_relevant_data %>%
+  filter(Component == '3: Post-Tone') %>%
+  select(Animal_ID, Age, Sex, Genotype, Treatment, Pct.Total.Time.Freezing)
+
+day2_lm3 <- lm(Pct.Total.Time.Freezing ~ factor(Age)*factor(Sex)*factor(Treatment), day2_APOE22_relevant_data_within_posttone)
+anova(day2_lm3)
+day2_anova3 <- as.data.frame(anova(day2_lm3))
+write.csv(day2_anova3, "/Users/daniel/Downloads/day2_anova3.csv", row.names = TRUE)
+emmeans(day2_lm3, list(pairwise ~ factor(Age)*factor(Sex)), adjust="tukey")
+```
+
+```{r combined-stats}
+
+learning_slope_data <- c()
+
+for (i in subjects) {
+  subject_data <- day0_APOE22_relevant_data %>%
+    filter(Animal_ID == i)
+  
+  regression <- lm(Pct.Total.Time.Freezing ~ Time, data = subject_data)
+  slope <- regression$coefficients[2]
+  #unname(slope)
+  #print(slope)
+  learning_slope_data <- append(learning_slope_data, slope)
+}
+
+learning_slope_data <- unname(learning_slope_data)
+
+behavioral_data <- data.frame(subjects, learning_slope_data) %>%
+  mutate(Animal_ID = subjects) %>%
+  mutate(Day0_Learning_Slope = learning_slope_data) %>%
+  select(Animal_ID, Day0_Learning_Slope)
+
+contextual_data <- day1_APOE22_relevant_data %>%
+  mutate(Day1_Contextual_Freezing = Pct.Total.Time.Freezing) %>%
+  select(Animal_ID, Day1_Contextual_Freezing)
+
+tone_freezing_data <- day2_APOE22_relevant_data %>%
+  filter(Component == '2: Tone') %>%
+  mutate(Day2_Tone_Freezing = Pct.Total.Time.Freezing) %>%
+  select(Animal_ID, Day2_Tone_Freezing)
+
+behavioral_data <- inner_join(behavioral_data, contextual_data, by='Animal_ID')
+behavioral_data <- inner_join(behavioral_data, tone_freezing_data, by='Animal_ID')
+save(behavioral_data, file="/Users/daniel/Downloads/behavior.rda")
+
+```

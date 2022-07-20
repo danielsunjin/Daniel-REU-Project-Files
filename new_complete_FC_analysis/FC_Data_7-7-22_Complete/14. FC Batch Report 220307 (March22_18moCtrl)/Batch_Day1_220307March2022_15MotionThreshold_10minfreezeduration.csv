@@ -1,0 +1,43 @@
+,Date :,4/5/2022 11:07,,,,,,,,,,,
+,Motion Threshold (au):,15,,,,,,,,,,,
+,Detection Method:,Linear,,,,,,,,,,,
+,Min Freeze Duration (f):,10,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Component Details,,,,,,,,,,,,
+,Component Name,Start Time,Duration (s),Start Frame,Duration Frames,,,,,,,,
+,White House Light, 0:00:00.000,300,0,9000,,,,,,,,
+,,,,,,,,,,,,,
+Animal_ID,Experiment,Trial,Box,Animal,Group,Component Name,Freeze Cnt,Time Freezing,Pct Total Time Freezing,Pct Component Time Freezing,Avg Motion Index,Min Motion Index,Max Motion Index
+220307_1,VF040522_095110,day1_trial1,Chamber1,,,White House Light,43,283.267,94.42,94.42,1.9,0,195
+,,,,,,,,,,,,,
+220307_2,VF040522_095110,day1_trial1,Chamber 2,,,White House Light,90,271.867,90.62,90.62,2.29,0,108
+,,,,,,,,,,,,,
+220307_4,VF040522_100606,day1_trial2,Chamber1,,,White House Light,17,290.033,96.68,96.68,1.82,0,311
+,,,,,,,,,,,,,
+220307_5,VF040522_100606,day1_trial2,Chamber 2,,,White House Light,128,242.267,80.76,80.76,4.78,0,176
+,,,,,,,,,,,,,
+220307_6,VF040522_101439,day1_trial3,Chamber1,,,White House Light,4,299.467,99.82,99.82,0.06,0,36
+,,,,,,,,,,,,,
+220307_7,VF040522_101439,day1_trial3,Chamber 2,,,White House Light,47,281.367,93.79,93.79,1.6,0,144
+,,,,,,,,,,,,,
+220307_8,VF040522_102256,day1_trial4,Chamber1,,,White House Light,23,296.667,98.89,98.89,0.72,0,100
+,,,,,,,,,,,,,
+220307_9,VF040522_102256,day1_trial4,Chamber 2,,,White House Light,98,248,82.67,82.67,3.95,0,184
+,,,,,,,,,,,,,
+220307_10,VF040522_103124,day1_trial5,Chamber1,,,White House Light,4,299.9,99.97,99.97,0.04,0,20
+,,,,,,,,,,,,,
+220307_11,VF040522_103124,day1_trial5,Chamber 2,,,White House Light,58,276.9,92.3,92.3,2.2,0,270
+,,,,,,,,,,,,,
+220307_12,VF040522_103959,day1_trial6,Chamber1,,,White House Light,25,287.8,95.93,95.93,1.93,0,293
+,,,,,,,,,,,,,
+220307_13,VF040522_103959,day1_trial6,Chamber 2,,,White House Light,17,298.3,99.43,99.43,0.36,0,40
+,,,,,,,,,,,,,
+220307_14,VF040522_104831,day1_trial7,Chamber1,,,White House Light,9,297.1,99.03,99.03,0.27,0,147
+,,,,,,,,,,,,,
+220307_15,VF040522_104831,day1_trial7,Chamber 2,,,White House Light,46,289.367,96.46,96.46,0.98,0,114
+,,,,,,,,,,,,,
+220307_16,VF040522_105647,day1_trial8,Chamber1,,,White House Light,17,292.667,97.56,97.56,1.41,0,447
+,,,,,,,,,,,,,
+220307_17,VF040522_105647,day1_trial8,Chamber 2,,,White House Light,138,208.5,69.5,69.5,8.23,0,595
