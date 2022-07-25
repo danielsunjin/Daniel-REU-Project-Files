@@ -145,6 +145,8 @@ Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/
 
 After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags.
 
+RABIES uses the DSURQE mouse atlas for preprocessing, confound correction, and analysis.
+
 **Successful preprocessing:**
 
 Commonspace template with commonspace BOLD:
@@ -190,4 +192,4 @@ The [Archive](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main
 
 The file [r_reader_connectome.R](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/r_reader_connectome.R) reads the connectome and behavior metrics data. Note that the variables storing the path to the master mouse datasheet, the connectomes, and the behavior.rda file may need to be updated.
 
-The file [vertex_func.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_func.py) contains the function `vertex()` for running vertex screening on the data. This function is used in the file [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py) to perform vertex screening on the data. The code for `vertex()` needs to be run before using the function in [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py).
+The file [vertex_func.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_func.py) contains the function `vertex()` for running vertex screening on the data. This function is used in the file [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py) to perform vertex screening on the data. The code for `vertex()` needs to be run before using the function in [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py). In [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py), set the variable `y` to be the behavior metric columns columns of behavior.rda to determine which brain regions are correlated with the behavior metrics.
