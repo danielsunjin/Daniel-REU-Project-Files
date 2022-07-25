@@ -144,19 +144,26 @@ Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/
 After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags.
 
 **Successful preprocessing:**
+
 Commonspace template with commonspace BOLD:
 ![image](https://user-images.githubusercontent.com/97412514/180836397-71e03602-8720-4491-b1e1-48f58ea8d209.png)
 Commonspace BOLD with commonspace labels:
 ![image](https://user-images.githubusercontent.com/97412514/180836692-17b2d127-c805-4242-a423-d3c18a3d7e89.png)
 
-
 ### Run Confound Correction on the Preprocess Outputs using RABIES
 
 Use the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) bash script to run confound correction on the fMRI images using RABIES. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script that produced the preprocessed fMRI images that you want to run confound correction on. 
 
+**Confound corrected BOLD:**
+![image](https://user-images.githubusercontent.com/97412514/180837415-79580318-8d80-4ffd-ac68-d621b37df426.png)
+
 ### Obtain Functional Connectivity Matrices (Functional Connectomes) from the fMRI images using RABIES
 
 Use the [analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/analysis) bash script to obtain functional connectomes from the fMRI images using rabies. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script and the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) script that produced the preprocessed, confound corrected fMRI images that you want to get connectomes from. 
+
+**Functional connectivity matrix example:**
+
+![image](https://user-images.githubusercontent.com/97412514/180837495-193cf640-3c8f-4c77-8836-e3d8e7dd76f3.png)
 
 ## Analyzing Fear Conditioning Data and Obtaining Behavior Metrics
 
