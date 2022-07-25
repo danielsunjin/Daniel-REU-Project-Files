@@ -206,5 +206,5 @@ The DSURQE mouse atlas regions are labeled with indices starting from 0. In the 
 
 ## Poster
 
-My REU program poster can be found [here]().
+My REU program poster can be found [here](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Daniel_Poster_V3.pdf).
 
