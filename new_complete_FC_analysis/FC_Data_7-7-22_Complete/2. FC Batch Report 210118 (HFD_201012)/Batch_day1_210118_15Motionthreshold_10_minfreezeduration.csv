@@ -1,0 +1,63 @@
+,Date :,5/27/2021 16:57,,,,,,,,,,,
+,Motion Threshold (au):,15,,,,,,,,,,,
+,Detection Method:,Linear,,,,,,,,,,,
+,Min Freeze Duration (f):,10,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Component Details,,,,,,,,,,,,
+,Component Name,Start Time,Duration (s),Start Frame,Duration Frames,,,,,,,,
+,White House Light, 0:00:00.000,300,0,9000,,,,,,,,
+,,,,,,,,,,,,,
+Animal ID,Experiment,Trial,Box,Animal,Group,Component Name,Freeze Cnt,Time Freezing,Pct Total Time Freezing,Pct Component Time Freezing,Avg Motion Index,Min Motion Index,Max Motion Index
+201012-1,VF020221_095621,Day 1-1,Chamber1,,,White House Light,111,243.3,81.1,81.1,12.14,0,60921
+,,,,,,,,,,,,,
+201012-2,VF020221_095621,Day 1-1,Chamber 2,,,White House Light,117,126.567,42.19,42.19,52.82,0,75225
+,,,,,,,,,,,,,
+201012-3,VF020221_100634,day1_2,Chamber1,,,White House Light,3,299.433,99.81,99.81,1.51,0,11232
+,,,,,,,,,,,,,
+201012-4,VF020221_100634,day1_2,Chamber 2,,,White House Light,87,255.8,85.27,85.27,13.15,0,66028
+,,,,,,,,,,,,,
+201012-5,VF020221_101425,day1_3,Chamber1,,,White House Light,18,296.067,98.69,98.69,5.04,0,39387
+,,,,,,,,,,,,,
+201012-6,VF020221_101425,day1_3,Chamber 2,,,White House Light,61,273.967,91.32,91.32,10.61,0,66798
+,,,,,,,,,,,,,
+201012-7,VF020221_102225,day1_4,Chamber1,,,White House Light,5,299.467,99.82,99.82,1.28,0,9804
+,,,,,,,,,,,,,
+201012-8,VF020221_102225,day1_4,Chamber 2,,,White House Light,53,288.8,96.27,96.27,8.83,0,69857
+,,,,,,,,,,,,,
+201012-9,VF020221_103021,day1_5,Chamber1,,,White House Light,89,219.7,73.23,73.23,17.84,0,67830
+,,,,,,,,,,,,,
+201012-10,VF020221_103021,day1_5,Chamber 2,,,White House Light,43,278.2,92.73,92.73,11.08,0,65037
+,,,,,,,,,,,,,
+201012-11,VF020221_103835,day1_6,Chamber1,,,White House Light,2,299.867,99.96,99.96,2.47,0,21879
+,,,,,,,,,,,,,
+201012-12,VF020221_103835,day1_6,Chamber 2,,,White House Light,60,271.5,90.5,90.5,11.3,0,64789
+,,,,,,,,,,,,,
+201012-13,VF020221_104724,day1_7,Chamber1,,,White House Light,15,297.1,99.03,99.03,4.09,0,33516
+,,,,,,,,,,,,,
+201012-15,VF020221_104724,day1_7,Chamber 2,,,White House Light,38,286.7,95.57,95.57,8.91,0,65546
+,,,,,,,,,,,,,
+201012-16,VF020221_105631,day1_8,Chamber1,,,White House Light,30,290.167,96.72,96.72,5.04,0,35616
+,,,,,,,,,,,,,
+201012-17,VF020221_105631,day1_8,Chamber 2,,,White House Light,137,227.9,75.97,75.97,17.08,0,68485
+,,,,,,,,,,,,,
+201012-18,VF020221_110658,day1_9,Chamber1,,,White House Light,14,297.7,99.23,99.23,3.43,0,28439
+,,,,,,,,,,,,,
+201012-19,VF020221_110658,day1_9,Chamber 2,,,White House Light,68,271.7,90.57,90.57,12.2,0,42554
+,,,,,,,,,,,,,
+201012-20,VF020221_111437,day1_10,Chamber1,,,White House Light,2,299.8,99.93,99.93,1.62,0,12668
+,,,,,,,,,,,,,
+201012-21,VF020221_111437,day1_10,Chamber 2,,,White House Light,29,292.9,97.63,97.63,8.12,0,66354
+,,,,,,,,,,,,,
+201012-22,VF020221_112312,day1_11,Chamber1,,,White House Light,32,295.333,98.44,98.44,5.33,0,41074
+,,,,,,,,,,,,,
+201012-23,VF020221_112312,day1_11,Chamber 2,,,White House Light,41,294.1,98.03,98.03,10.33,0,50275
+,,,,,,,,,,,,,
+201012-24,VF020221_113206,day1_12,Chamber1,,,White House Light,65,260.433,86.81,86.81,10.7,0,64778
+,,,,,,,,,,,,,
+201012-25,VF020221_113206,day1_12,Chamber 2,,,White House Light,34,291.967,97.32,97.32,8.72,0,40255
+,,,,,,,,,,,,,
+201012-26,VF020221_113931,day1_13,Chamber1,,,White House Light,1,299.833,99.94,99.94,2.93,0,26059
+,,,,,,,,,,,,,
+201012-27,VF020221_113931,day1_13,Chamber 2,,,White House Light,34,289.6,96.53,96.53,8.94,0,37050

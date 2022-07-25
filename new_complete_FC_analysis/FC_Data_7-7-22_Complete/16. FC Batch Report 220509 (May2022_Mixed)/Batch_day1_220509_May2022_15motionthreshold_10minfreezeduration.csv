@@ -1,0 +1,31 @@
+,Date :,6/7/2022 10:51,,,,,,,,,,,
+,Motion Threshold (au):,15,,,,,,,,,,,
+,Detection Method:,Linear,,,,,,,,,,,
+,Min Freeze Duration (f):,10,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Component Details,,,,,,,,,,,,
+,Component Name,Start Time,Duration (s),Start Frame,Duration Frames,,,,,,,,
+,White House Light, 0:00:00.000,300,0,9000,,,,,,,,
+,,,,,,,,,,,,,
+Animal_ID,Experiment,Trial,Box,Animal,Group,Component Name,Freeze Cnt,Time Freezing,Pct Total Time Freezing,Pct Component Time Freezing,Avg Motion Index,Min Motion Index,Max Motion Index
+220509_1,VF060722_100312,day1_trial1,Chamber1,,,White House Light,60,266.3,88.77,88.77,4.09,0,315
+,,,,,,,,,,,,,
+220509_4,VF060722_100312,day1_trial1,Chamber 2,,,White House Light,101,161.3,53.77,53.77,22.44,0,587
+,,,,,,,,,,,,,
+220509_6,VF060722_101225,day1_trial2,Chamber1,,,White House Light,91,239.767,79.92,79.92,10.83,0,673
+,,,,,,,,,,,,,
+220509_7,VF060722_101225,day1_trial2,Chamber 2,,,White House Light,64,251.9,83.97,83.97,7.62,0,645
+,,,,,,,,,,,,,
+220509_8,VF060722_102126,day1_trial3,Chamber1,,,White House Light,18,297.633,99.21,99.21,0.37,0,50
+,,,,,,,,,,,,,
+220509_10,VF060722_102126,day1_trial3,Chamber 2,,,White House Light,133,182.5,60.83,60.83,16.75,0,522
+,,,,,,,,,,,,,
+220509_11,VF060722_103130,day1_trial4,Chamber1,,,White House Light,29,289.267,96.42,96.42,2,0,275
+,,,,,,,,,,,,,
+220509_12,VF060722_103130,day1_trial4,Chamber 2,,,White House Light,128,130.367,43.46,43.46,35.67,0,1429
+,,,,,,,,,,,,,
+220509_13,VF060722_103925,day1_trial5,Chamber1,,,White House Light,74,263.567,87.86,87.86,6.51,0,341
+,,,,,,,,,,,,,
+220509_14,VF060722_103925,day1_trial5,Chamber 2,,,White House Light,81,217.133,72.38,72.38,13.88,0,534

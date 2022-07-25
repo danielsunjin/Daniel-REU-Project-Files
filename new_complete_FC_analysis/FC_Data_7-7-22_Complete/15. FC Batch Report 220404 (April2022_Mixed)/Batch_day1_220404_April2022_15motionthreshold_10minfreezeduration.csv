@@ -1,0 +1,37 @@
+,Date :,5/3/2022 10:50,,,,,,,,,,,
+,Motion Threshold (au):,15,,,,,,,,,,,
+,Detection Method:,Linear,,,,,,,,,,,
+,Min Freeze Duration (f):,10,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Component Details,,,,,,,,,,,,
+,Component Name,Start Time,Duration (s),Start Frame,Duration Frames,,,,,,,,
+,White House Light, 0:00:00.000,300,0,9000,,,,,,,,
+,,,,,,,,,,,,,
+Animal_ID,Experiment,Trial,Box,Animal,Group,Component Name,Freeze Cnt,Time Freezing,Pct Total Time Freezing,Pct Component Time Freezing,Avg Motion Index,Min Motion Index,Max Motion Index
+220404_1,VF050322_095037,day1_trial1,Chamber1,,,White House Light,26,274.267,91.42,91.42,6.47,0,501
+,,,,,,,,,,,,,
+220404_2,VF050322_095037,day1_trial1,Chamber 2,,,White House Light,65,257.067,85.69,85.69,5.99,0,677
+,,,,,,,,,,,,,
+220404_3,VF050322_100007,day1_trial2,Chamber1,,,White House Light,28,289.767,96.59,96.59,0.92,0,82
+,,,,,,,,,,,,,
+220404_4,VF050322_100007,day1_trial2,Chamber 2,,,White House Light,41,251.8,83.93,83.93,8.78,0,494
+,,,,,,,,,,,,,
+220404_5,VF050322_100850,day1_trial3,Chamber1,,,White House Light,17,297.067,99.02,99.02,0.34,0,81
+,,,,,,,,,,,,,
+220404_6,VF050322_100850,day1_trial3,Chamber 2,,,White House Light,26,292.967,97.66,97.66,0.91,0,311
+,,,,,,,,,,,,,
+220404_7,VF050322_101641,day1_trial4,Chamber1,,,White House Light,12,295.667,98.56,98.56,0.65,0,170
+,,,,,,,,,,,,,
+220404_8,VF050322_101641,day1_trial4,Chamber 2,,,White House Light,32,274.667,91.56,91.56,3.1,0,277
+,,,,,,,,,,,,,
+220404_9,VF050322_102458,day1_trial5,Chamber1,,,White House Light,95,236,78.67,78.67,11.15,0,2059
+,,,,,,,,,,,,,
+220404_10,VF050322_102458,day1_trial5,Chamber 2,,,White House Light,66,248.967,82.99,82.99,7.59,0,575
+,,,,,,,,,,,,,
+220404_11,VF050322_103253,day1_trial6,Chamber1,,,White House Light,11,291.967,97.32,97.32,1.18,0,225
+,,,,,,,,,,,,,
+220404_12,VF050322_103253,day1_trial6,Chamber 2,,,White House Light,46,277.6,92.53,92.53,2.77,0,273
+,,,,,,,,,,,,,
+220404_13,VF050322_104053,day1_trial7,Chamber1,,,White House Light,52,263.567,87.86,87.86,7.65,0,428
