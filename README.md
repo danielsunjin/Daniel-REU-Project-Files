@@ -20,6 +20,8 @@ This repository contains information on how I completed the various parts of my 
 
 ## Obtaining Functional Connectomes from fMRI
 
+fMRI processing scripts are found in this folder: [fMRI_processing_scripts](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/fMRI_processing_scripts).
+
 ### Aquiring Structural and Functional MRI Images and Organizing the Data 
 
 For this project, we aquired structural MRI images and multi-echo resting state functional MRI images of mice brains. These images were aquired on a 7T Bruker 70/20 with a volume RF coil and a 4 channel surface receiver array. We used a T2* EPI protocol with 3 echoes beginning at TE=5 ms and spaced 14.315 ms apart, TR=2252 ms, flip angle=60 degrees, over a field of view of 19.2 x 15 x 9.6 mm, matrix=64 x 50 x 32, and reconstructed at 300 um isotropic resolution. We acquired 600 volumes in 17 minutes. 
@@ -167,4 +169,16 @@ Use the [analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob
 
 ## Analyzing Fear Conditioning Data and Obtaining Behavior Metrics
 
-For this project, we analyze fear conditioning behavioral data from the mice. 
+For this project, we analyze fear conditioning behavioral data from the mice. The data and scripts for processing the fear conditioning behavior data can be found in this folder: [new_complete_FC_analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/new_complete_FC_analysis).
+
+Analysis of all the mice can be found in this R markdown file: [analysis.Rmd](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/new_complete_FC_analysis/analysis.Rmd)
+
+Analysis of the 15 APOE2 mice in my project can be found here: [APOE22_analysis.Rmd](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/new_complete_FC_analysis/APOE22_analysis.Rmd)
+
+Note that you will need to change the paths for where images are saved or from where CSVs are read from in these R files.
+
+The fear conditioning experiment can be broken up into 3 days: day 0 (training), day 1 (contextual test), and day 2 (tone test):
+![image](https://user-images.githubusercontent.com/97412514/180839411-a96c9319-a05d-4dba-9644-407eada348d7.png)
+
+For day 0, I used a RMANOVA to look at the significance of sex, age, diet, and time to percent freezing time for 15 APOE2 mice. For day 1, I used an ANOVA to look at the significance of sex, age, and diet to percent freezing time for 15 APOE2 mice. For day 2, I used an ANOVA to look at the significance of sex, age, and diet to percent freezing time for 15 APOE2 mice during the pre-tone, tone, and post-tone components of the experiment. For day 2, I did a posthoc on the tone data to see the pairwise comparisons of mice based on sex, age, and diet. I also did a posthoc on the tone data to see the pairwise comparisons of mice based on sex and age within diet.
+
