@@ -22,7 +22,7 @@ This repository contains information on how I completed the various parts of my 
 
 ### Aquiring Structural and Functional MRI Images and Organizing the Data 
 
-For this project, we aquired structural MRI images and resting state functional MRI images of mice brains. These images were aquired on a 7T Bruker 70/20 with a volume RF coil and a 4 channel surface receiver array. We used a T2* EPI protocol with 3 echoes beginning at TE=5 ms and spaced 14.315 ms apart, TR=2252 ms, flip angle=60 degrees, over a field of view of 19.2 x 15 x 9.6 mm, matrix=64 x 50 x 32, and reconstructed at 300 um isotropic resolution. We acquired 600 volumes in 17 minutes. 
+For this project, we aquired structural MRI images and multi-echo resting state functional MRI images of mice brains. These images were aquired on a 7T Bruker 70/20 with a volume RF coil and a 4 channel surface receiver array. We used a T2* EPI protocol with 3 echoes beginning at TE=5 ms and spaced 14.315 ms apart, TR=2252 ms, flip angle=60 degrees, over a field of view of 19.2 x 15 x 9.6 mm, matrix=64 x 50 x 32, and reconstructed at 300 um isotropic resolution. We acquired 600 volumes in 17 minutes. 
 
 The images aquired on the Bruker must first be converted to NIfTIs. We are interested in the T1 RARE images (structural images) and T2S EPI images (BOLD images) of the mice, so I extract these images from the mice and organize the files in the BIDS format like so:
 
@@ -73,6 +73,13 @@ BRUKER_data_reoriented
 
 RABIES requires that the anatomical images have a `T1w` or `T2w` suffix, the bold images have a `bold` suffix, and that `run-{run #}` be included in the names of the BOLD images if multiple fMRI images were taken of the subject in one session.
 
+**Before (original multi-echo fMRI image):**
+![image](https://user-images.githubusercontent.com/97412514/180833491-160694f1-5bc6-47d3-b550-d652538f4a39.png)
+**After (reoriented multi-echo fMRI image):**
+![image](https://user-images.githubusercontent.com/97412514/180833796-aece4c6e-7998-4cb7-a6e5-c065a9d111cd.png)
+
+Note how the left right, anterior posterior, and superior inferior labels now match with the image.
+
 ### Making Masks of the Brain in the fMRI Images
 
 After reorienting the images, we need to optimally combine the multiple echoes of the fMRI images and extract the brain in the fMRI images. To do this, I first create masks of the brain in the reoriented fMRI images using the paintbrush tool in ITK-SNAP. Another faster way to make the masks is to use the active contour feature of ITK-SNAP, and then use the paintbrush tool to edit the results. To use the active contour tool, click on active contour in the main toolbox section on the left side of ITK-SNAP, move the borders to include the whole brain, and click on segment 3D. Next, adjust the threshholding to include most of the mouse brain and leave out most of the other stuff (click on More ... for more options when doing this). Next, add bubbles within the brain that will grow to cover the brain. Finally, set the parameters of the active contour such that when you press play, the mask mainly covers the brain and little else. This will require some trial and error tinkering. name the masks `mask.nii.gz`.
@@ -98,6 +105,10 @@ BRUKER_data_reoriented_with_masks
                 └── mask.nii.gz
                 └── sub-2205094_ses-1_run-1_bold.nii.gz
  ```
+ 
+ **Masked brain:**
+ ![image](https://user-images.githubusercontent.com/97412514/180834916-cee38cf5-0087-4317-b73d-eece005c7983.png)
+
 
 ### Process the Multi-Echo fMRI Images and Extract the Brain
 
@@ -121,11 +132,23 @@ BRUKER_data_reoriented_single_echoes
 
 Notice that this script outputs the images in a BIDS format.
 
+**Before (reoriented multi-echo fMRI image):**
+![image](https://user-images.githubusercontent.com/97412514/180833796-aece4c6e-7998-4cb7-a6e5-c065a9d111cd.png)
+**After (reoriented single-echo brain only fMRI image):**
+![image](https://user-images.githubusercontent.com/97412514/180833553-d009a37f-5cdd-4c9e-854b-8fee53ff55c0.png)
+
 ### Preprocess the fMRI Images using RABIES
 
 Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) bash script to preprocess the fMRI images using RABIES. Change the `bids_folder` varible to the path of the input BIDS directory that contains the reoriented fMRI images that have been processed to a single echo and contain only the brain (created in the prevous step). Change the `project_folder` varible to the path of a directory that will contain all the RABIES outputs and information regarding preprocessing, confound correction, and analysis for the images in the `bids_folder` directory. 
 
 After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags.
+
+**Successful preprocessing:**
+Commonspace template with commonspace BOLD:
+![image](https://user-images.githubusercontent.com/97412514/180836397-71e03602-8720-4491-b1e1-48f58ea8d209.png)
+Commonspace BOLD with commonspace labels:
+![image](https://user-images.githubusercontent.com/97412514/180836692-17b2d127-c805-4242-a423-d3c18a3d7e89.png)
+
 
 ### Run Confound Correction on the Preprocess Outputs using RABIES
 
