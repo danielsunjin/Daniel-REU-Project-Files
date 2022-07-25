@@ -190,6 +190,10 @@ I also compute the slope of the line of best-fit for the percent-freezing vs tim
 
 The [Archive](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/Archive) folder contains the R script for reading the connectome and behavior metrics data and for running vertex screening on the connectomes and behavior metrics. 
 
-The file [r_reader_connectome.R](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/r_reader_connectome.R) reads the connectome and behavior metrics data. Note that the variables storing the path to the master mouse datasheet, the connectomes, and the behavior.rda file may need to be updated.
+The file [r_reader_connectome.R](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/r_reader_connectome.R) reads the connectome and behavior metrics data. Note that the variables storing the path to the master mouse datasheet, the connectomes, and the behavior.rda file may need to be updated. This script outputs the data read as rda files (noreadcsf.rda, connectivity.rda, and response.rda).
 
 The file [vertex_func.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_func.py) contains the function `vertex()` for running vertex screening on the data. This function is used in the file [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py) to perform vertex screening on the data. The code for `vertex()` needs to be run before using the function in [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py). In [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py), set the variable `y` to be the behavior metric columns columns of behavior.rda to determine which brain regions are correlated with the behavior metrics.
+
+## Sparse Canonical Correlation Analysis (SCCA)
+
+The [agesexgene](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/agesexgene) folder contains the R script[readandrunplussubnetsnoweight_behavioral.R](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/agesexgene/readandrunplussubnetsnoweight_behavioral.R) that run SCCA on the connectomes and behavior metrics. 
