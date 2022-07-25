@@ -1,0 +1,55 @@
+,Date :,12/14/2021 11:28,,,,,,,,,,,
+,Motion Threshold (au):,15,,,,,,,,,,,
+,Detection Method:,Linear,,,,,,,,,,,
+,Min Freeze Duration (f):,10,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Component Details,,,,,,,,,,,,
+,Component Name,Start Time,Duration (s),Start Frame,Duration Frames,,,,,,,,
+,White House Light, 0:00:00.000,300,0,9000,,,,,,,,
+,,,,,,,,,,,,,
+Animal_ID,Experiment,Trial,Box,Animal,Group,Component Name,Freeze Cnt,Time Freezing,Pct Total Time Freezing,Pct Component Time Freezing,Avg Motion Index,Min Motion Index,Max Motion Index
+211122_1,VF121421_095945,day1_trial1,Chamber1,,,White House Light,67,272.533,90.84,90.84,3.91,0,487
+,,,,,,,,,,,,,
+211122_2,VF121421_095945,day1_trial1,Chamber 2,,,White House Light,103,231,77,77,7.33,0,371
+,,,,,,,,,,,,,
+211122_3,VF121421_100556,day1_trial2,Chamber1,,,White House Light,9,298.933,99.64,99.64,0.22,0,231
+,,,,,,,,,,,,,
+211122_4,VF121421_100556,day1_trial2,Chamber 2,,,White House Light,95,187.033,62.34,62.34,15.57,0,593
+,,,,,,,,,,,,,
+211122_5,VF121421_101350,day1_trial3,Chamber1,,,White House Light,89,257.2,85.73,85.73,5.42,0,419
+,,,,,,,,,,,,,
+211122_6,VF121421_101350,day1_trial3,Chamber 2,,,White House Light,128,197.733,65.91,65.91,13.2,0,480
+,,,,,,,,,,,,,
+211122_7,VF121421_102150,day1_trial4,Chamber1,,,White House Light,42,281.167,93.72,93.72,21.84,0,22553
+,,,,,,,,,,,,,
+211122_8,VF121421_102150,day1_trial4,Chamber 2,,,White House Light,127,168.133,56.04,56.04,15.5,0,443
+,,,,,,,,,,,,,
+211122_9,VF121421_102944,day1_trial5,Chamber1,,,White House Light,3,299.9,99.97,99.97,0.04,0,38
+,,,,,,,,,,,,,
+211122_10,VF121421_102944,day1_trial5,Chamber 2,,,White House Light,85,251.767,83.92,83.92,5.84,0,587
+,,,,,,,,,,,,,
+211122_11,VF121421_103735,day1_trial6,Chamber1,,,White House Light,74,250.967,83.66,83.66,8.51,0,609
+,,,,,,,,,,,,,
+211122_12,VF121421_103735,day1_trial6,Chamber 2,,,White House Light,116,230.4,76.8,76.8,9.13,0,527
+,,,,,,,,,,,,,
+211122_13,VF121421_104531,day1_trial7,Chamber1,,,White House Light,27,284.733,94.91,94.91,2.95,0,521
+,,,,,,,,,,,,,
+211122_14,VF121421_104531,day1_trial7,Chamber 2,,,White House Light,126,166.433,55.48,55.48,22.34,0,618
+,,,,,,,,,,,,,
+211122_15,VF121421_105340,day1_trial8,Chamber1,,,White House Light,33,285.2,95.07,95.07,2.21,0,326
+,,,,,,,,,,,,,
+211122_16,VF121421_105340,day1_trial8,Chamber 2,,,White House Light,126,141.8,47.27,47.27,35.87,0,813
+,,,,,,,,,,,,,
+211122_23,VF121421_110201,day1_trial9,Chamber1,,,White House Light,103,242.967,80.99,80.99,9.47,0,453
+,,,,,,,,,,,,,
+211122_24,VF121421_110201,day1_trial9,Chamber 2,,,White House Light,87,267.767,89.26,89.26,3.43,0,400
+,,,,,,,,,,,,,
+211122_25,VF121421_110958,day1_trial10,Chamber1,,,White House Light,12,294.4,98.13,98.13,0.72,0,234
+,,,,,,,,,,,,,
+211122_26,VF121421_110958,day1_trial10,Chamber 2,,,White House Light,104,232.7,77.57,77.57,7.49,0,607
+,,,,,,,,,,,,,
+211122_27,VF121421_111817,day1_trial11,Chamber1,,,White House Light,33,290.9,96.97,96.97,1.11,0,157
+,,,,,,,,,,,,,
+211122_28,VF121421_111817,day1_trial11,Chamber 2,,,White House Light,120,195.167,65.06,65.06,11.54,0,557
