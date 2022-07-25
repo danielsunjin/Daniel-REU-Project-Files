@@ -141,7 +141,7 @@ Notice that this script outputs the images in a BIDS format.
 
 ### Preprocess the fMRI Images using RABIES
 
-Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) bash script to preprocess the fMRI images using RABIES. Change the `bids_folder` varible to the path of the input BIDS directory that contains the reoriented fMRI images that have been processed to a single echo and contain only the brain (created in the prevous step). Change the `project_folder` varible to the path of a directory that will contain all the RABIES outputs and information regarding preprocessing, confound correction, and analysis for the images in the `bids_folder` directory. 
+Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) bash script to preprocess the fMRI images using RABIES. Change the `bids_folder` varible to the path of the input BIDS directory that contains the reoriented fMRI images that have been processed to a single echo and contain only the brain (created in the prevous step). Change the `project_folder` varible to the path of a directory that will contain all the RABIES outputs and information regarding preprocessing, confound correction, and analysis for the images in the `bids_folder` directory. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed.
 
 After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags.
 
@@ -154,14 +154,14 @@ Commonspace BOLD with commonspace labels:
 
 ### Run Confound Correction on the Preprocess Outputs using RABIES
 
-Use the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) bash script to run confound correction on the fMRI images using RABIES. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script that produced the preprocessed fMRI images that you want to run confound correction on. 
+Use the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) bash script to run confound correction on the fMRI images using RABIES. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script that produced the preprocessed fMRI images that you want to run confound correction on. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed.
 
 **Confound corrected BOLD:**
 ![image](https://user-images.githubusercontent.com/97412514/180837415-79580318-8d80-4ffd-ac68-d621b37df426.png)
 
 ### Obtain Functional Connectivity Matrices (Functional Connectomes) from the fMRI images using RABIES
 
-Use the [analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/analysis) bash script to obtain functional connectomes from the fMRI images using rabies. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script and the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) script that produced the preprocessed, confound corrected fMRI images that you want to get connectomes from. 
+Use the [analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/analysis) bash script to obtain functional connectomes from the fMRI images using rabies. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script and the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) script that produced the preprocessed, confound corrected fMRI images that you want to get connectomes from. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed.
 
 **Functional connectivity matrix example:**
 
@@ -182,4 +182,12 @@ The fear conditioning experiment can be broken up into 3 days: day 0 (training),
 
 For day 0, I used a RMANOVA to look at the significance of sex, age, diet, and time to percent freezing time for 15 APOE2 mice. For day 1, I used an ANOVA to look at the significance of sex, age, and diet to percent freezing time for 15 APOE2 mice. For day 2, I used an ANOVA to look at the significance of sex, age, and diet to percent freezing time for 15 APOE2 mice during the pre-tone, tone, and post-tone components of the experiment. For day 2, I did a posthoc on the tone data to see the pairwise comparisons of mice based on sex, age, and diet. I also did a posthoc on the tone data to see the pairwise comparisons of mice based on sex and age within diet.
 
-I also compute the slope of the line of best-fit for the percent-freezing vs time data of each mice during day 0 to get the learning rates of the mice. I use the day 0 learning rate, the day 1 percent freezing time, and the day 2 percent freezing time during the tone as behavior metrics to be used in vertex screening and sparse canonical corelation analysis.
+I also compute the slope of the line of best-fit for the percent-freezing vs time data of each mice during day 0 to get the learning rates of the mice. I use the day 0 learning rate, the day 1 percent freezing time, and the day 2 percent freezing time during the tone as behavior metrics to be used in vertex screening and sparse canonical corelation analysis. These are saved in a file named behavior.rda by the script. 
+
+## Vertex Screening
+
+The [Archive](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/Archive) folder contains the R script for reading the connectome and behavior metrics data and for running vertex screening on the connectomes and behavior metrics. 
+
+The file [r_reader_connectome.R](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/r_reader_connectome.R) reads the connectome and behavior metrics data. Note that the variables storing the path to the master mouse datasheet, the connectomes, and the behavior.rda file may need to be updated.
+
+The file [vertex_func.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_func.py) contains the function `vertex()` for running vertex screening on the data. This function is used in the file [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py) to perform vertex screening on the data. The code for `vertex()` needs to be run before using the function in [vertex_connectome.py](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Archive/vertex_connectome.py).
