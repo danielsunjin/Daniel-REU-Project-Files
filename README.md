@@ -6,7 +6,7 @@ This repository contains information on how I completed the various parts of my 
 
 ## Software Dependencies
 
-- ANTs
+- ANTs (currently in /install/bin/ in Alex's samos account)
 - Convert3D
 - FSL
 - ITK-SNAP
