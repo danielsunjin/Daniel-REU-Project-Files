@@ -218,3 +218,28 @@ The regions in the RABIES connectome outputs CSVs are labeled with indices from 
 
 My REU program poster can be found [here](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Daniel_REU_Poster.pdf).
 
+## Where Stuff Lives on Samos:
+
+All files related to my project in samos are in `/mnt/paros_WORK/daniel/project`
+
+Directories that start with `pipeline` contain different iterations of RABIES outputs (preprocessing, confound correction, analysis). The directory that contains the best results are the `pipeline_syn_rigid_syn_coreg_masked` directory for the 220404 mice and the `pipeline_BRUKER_data_copy_1` directory for the 220509 mice and some more 220404 mice. 
+
+Directories that start with `project_data` contain MRI files for the 220404 mice and directories that start with `BRUKER` contain MRI files for the 220509 mice and some more 220404 mice. The `BRUKER_data_full_organized_new` and the `project_data` directories contain the original, unprocessed MRI images of the mice. Directories that include `reoriented` contain the reoriented MRI images of the mice. Directories that include `reoriented_with_masks` contain the reoriented MRI images of the mice and masks made in ITK-SNAP of their brains. Directories that include `single_echos` contain the combined multi-echo fMRI images of the mice, and directories that include `single_echos_using_masks` contain the combined multi-echo fMRI images of the mice that have also been skull-stripped correctly using the masks.
+
+Note that the directories that include `renamed` are just directories in which the subject IDs in the names of files and directories in the directory have been renamed to work for RABIES.
+
+The important scripts are:
+- `reorient` (reorients fMRI images)
+- `process_mGE` (combines multi echoes without using a mask)
+- `process_mGE_with_masks` (combines multi echoes with a mask)
+- `split_echo.py` (splits multi echo fMRI images)
+- `preprocess`, `preprocess_2`, `preprocess_3` (RABIES preprocess scripts that have different RABIES flags)
+- `confound_correction` (RABIES confound correction script)
+- `analysis` (RABIES analysis script)
+
+## Where Stuff Lives Locally
+
+The unprocessed, straight from BRUKER MRI images are in the `BRUKER` directory in `Documents`. The `pipeline_syn_rigid_syn_coreg_masked` and `pipeline_BRUKER_data_copy_1` directories mentioned in the previous section are in `Downloads`. The `Archive` and `agesexgene` directories that include the scripts for vertex screening and SCCA are also in `Downloads`. The `new_complete_FC_analysis` directory that conatins all the scripts and files for analyzing fear conditioning data is in `Documents`. The poster powerpoints and pdfs are also in `Documents`.
+
+
+
