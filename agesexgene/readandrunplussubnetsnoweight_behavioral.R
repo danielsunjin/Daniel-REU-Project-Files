@@ -634,8 +634,8 @@ riskfactors
 xaxisvar=Sex; 
 xaxis="Sex" ;
 xaxisvarnames=Sex;
-brightnessvar=Diet; 
-brightness="Diet";
+brightnessvar=Age; 
+brightness="Age";
 #######
 
 
@@ -646,9 +646,9 @@ names(xaxisvar)=xaxisvarnames
 
 
 sqrt=sqrt(length(subnetsresults))
-#png("/Users/daniel/Documents/sexcat2.png", units="in", width=4, height=4, res=400)  
+png("/Users/daniel/Documents/sexcat2.png", units="in", width=4, height=4, res=400)  
 
-par(mfrow = c(floor(sqrt), ceiling(length(subnetsresults)/sqrt)), cex.main=1.5, cex.axis=1.5, cex.lab=1.5)
+#par(mfrow = c(floor(sqrt), ceiling(length(subnetsresults)/sqrt)), cex.main=1.5, cex.axis=1.5, cex.lab=1.5)
 #par(mfrow = c(1, 5), cex.main=1.2, cex.axis=1.5, cex.lab=1.5)
 
 
@@ -664,7 +664,7 @@ for (j in 1:length(subnetsresults)){
   }
   legend=paste(legend,")")
   vioplot(histdatasplit[j,]~ xaxisvar , plotCentre = "dot", col =cols,  ylab="net weight" , cex.lab=10,
-          main = legend, xlab ="Treatment Category", cex.names=1.5, cex.axis=1.5 )
+          main = legend, xlab ="Sex Category", cex.names=1.5, cex.axis=1.5 )
   a=subnetsresults[[j]]; a=as.table(a);a= as.numeric(a[1,]); 
   #mtext(paste("R",a, collapse=', '), side=4, cex=0.5)
   
@@ -686,7 +686,7 @@ for (j in 1:length(subnetsresults)){
   }
 }
 
-#dev.off()
+dev.off()
 
 
 sum(GenoTypes=="APOE44" & Sex=="2F")
