@@ -57,7 +57,7 @@ response=left_join(datatemp, behavioral_data, by='BadeaID')
 write.csv(response, "/Users/daniel/Downloads/behavior.csv", row.names = TRUE)
 #setwd(system("pwd", intern = T) )
 save(response, file="response.rda")
-noreadcsf=c(58, 78, 119, 120, 147) # dont read csf already in matlab
+noreadcsf=c(53, 70, 110, 111, 137) # dont read csf already in matlab
 
 
 
