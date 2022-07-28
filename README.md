@@ -216,7 +216,7 @@ The regions in the RABIES connectome outputs CSVs are labeled with indices from 
 
 ## Poster
 
-My REU program poster can be found [here](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Daniel_REU_Poster.pdf).
+My REU program poster can be found [here](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/Daniel_Poster_V4.pdf).
 
 ## Where Stuff Lives on Samos:
 
