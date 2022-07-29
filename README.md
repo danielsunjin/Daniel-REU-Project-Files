@@ -274,5 +274,6 @@ Chass atlas region indices for vascular: 161, 1161
 
 It is important to note that the vertex screening and SCCA scripts that I use do not curently work with the chass atlas.
 
-Note: currently, preprocessing with the Chass atlas does not work completely, as there are errors related to estimating confounds. 
+Note: there was a problem with registration because because the atlas axis were wrong. In `chass_symmetric3` in samos, I reoriented the template images, labels, and masks so that the axes are correct. This should fix the issue. 
+
 
