@@ -22,7 +22,7 @@ Note that RABIES in the fMRI processing scripts is used within a singularity con
 
 ## Obtaining Functional Connectomes from fMRI
 
-fMRI processing scripts are found in this folder: [fMRI_processing_scripts](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/fMRI_processing_scripts).
+fMRI processing scripts are found in this folder: [fMRI_processing_scripts](https://github.com/danielsunjin/Daniel-REU-Project-Files/tree/main/fMRI_processing_scripts). All fMRI processing needs to be done in samos.
 
 ### Aquiring Structural and Functional MRI Images and Organizing the Data 
 
