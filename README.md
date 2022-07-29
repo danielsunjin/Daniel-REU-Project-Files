@@ -258,7 +258,7 @@ The important scripts are:
 
 ## Where Stuff Lives Locally
 
-The unprocessed, straight from BRUKER MRI images are in the `BRUKER` directory in `Documents`. The `pipeline_syn_rigid_syn_coreg_masked` and `pipeline_BRUKER_data_copy_1` directories mentioned in the previous section are in `Downloads`. The `Archive` and `agesexgene` directories that include the scripts for vertex screening and SCCA are in `Documents`. The `new_complete_FC_analysis` directory that conatins all the scripts and files for analyzing fear conditioning data is in `Documents`. The poster powerpoints and pdfs are also in `Documents`. Functional connectomes of 15 APOE2 mice are in `FC_matrices` in `Downloads`.
+The unprocessed, straight from BRUKER MRI images are in the `BRUKER` directory in `Documents`. The `pipeline_syn_rigid_syn_coreg_masked` and `pipeline_BRUKER_data_copy_1` directories mentioned in the previous section are in `Documents`. The `Archive` and `agesexgene` directories that include the scripts for vertex screening and SCCA are in `Documents`. The `new_complete_FC_analysis` directory that conatins all the scripts and files for analyzing fear conditioning data is in `Documents`. The poster powerpoints and pdfs are also in `Documents`. Functional connectomes of 15 APOE2 mice are in `FC_matrices` in `Documents`.
 
 
 
