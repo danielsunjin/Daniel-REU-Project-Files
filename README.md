@@ -274,4 +274,5 @@ Chass atlas region indices for vascular: 161, 1161
 
 It is important to note that the vertex screening and SCCA scripts that I use do not curently work with the chass atlas.
 
+Note: currently, preprocessing with the Chass atlas does not work completely, as there are errors related to estimating confounds. 
 
