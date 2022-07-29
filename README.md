@@ -6,13 +6,13 @@ This repository contains information on how I completed the various parts of my 
 
 ## Software Dependencies
 
-- ANTs (currently in /install/bin/ in Alex's samos account)
-- Convert3D
-- FSL
-- ITK-SNAP
-- tedana
-- Singularity
-- RABIES
+- [ANTs](https://github.com/ANTsX/ANTs) (currently in /install/bin/ in Alex's samos account)
+- [Convert3D](http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.C3D)
+- [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
+- [ITK-SNAP](http://www.itksnap.org/pmwiki/pmwiki.php)
+- [tedana](https://tedana.readthedocs.io/en/stable/installation.html)
+- [Singularity](https://docs.sylabs.io/guides/3.0/user-guide/installation.html)
+- [RABIES](https://rabies.readthedocs.io/en/stable/installation.html)
 - R
 - RStudio
 - Python
