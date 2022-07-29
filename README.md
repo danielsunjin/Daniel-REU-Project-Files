@@ -28,7 +28,7 @@ fMRI processing scripts are found in this folder: [fMRI_processing_scripts](http
 
 For this project, we aquired structural MRI images and multi-echo resting state functional MRI images of mice brains. These images were aquired on a 7T Bruker 70/20 with a volume RF coil and a 4 channel surface receiver array. We used a T2* EPI protocol with 3 echoes beginning at TE=5 ms and spaced 14.315 ms apart, TR=2252 ms, flip angle=60 degrees, over a field of view of 19.2 x 15 x 9.6 mm, matrix=64 x 50 x 32, and reconstructed at 300 um isotropic resolution. We acquired 600 volumes in 17 minutes. 
 
-The images aquired on the Bruker must first be converted to NIfTIs. We are interested in the T1 RARE images (structural images) and T2S EPI images (BOLD images) of the mice, so I extract these images from the mice and organize the files in the BIDS format like so:
+The images aquired on the Bruker must first be converted to NIfTIs. These NIfTI files are in the `BRUKER` directory in `Documents` in my local computer. We are interested in the T1 RARE images (structural images) and T2S EPI images (BOLD images) of the mice, so I first extract these images from the mice and organize the files in the BIDS format, which looks something like this:
 
 ```
 BRUKER_data_reoriented
@@ -52,6 +52,8 @@ Some notes about the BIDS format:
 - RIght now, the names of the anatomical (structural) and BOLD (functional) images do not matter.
 - Subject IDs must only be numbers. No spaces, underlines, hyphens or letters.
 - In my project, there was only one scanning session per subject, so all subjects had only a ses-1 directory. 
+
+An example is the `/mnt/paros_WORK/daniel/project/BRUKER_data_full_organized_new` directory in Alex's samos account.
  
 ### Reorienting the Structural and Functional MRI Images
  
@@ -76,6 +78,8 @@ BRUKER_data_reoriented
  ```
 
 RABIES requires that the anatomical images have a `T1w` or `T2w` suffix, the bold images have a `bold` suffix, and that `run-{run #}` be included in the names of the BOLD images if multiple fMRI images were taken of the subject in one session.
+
+An example output is the `/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented` directory in Alex's samos account which had `/mnt/paros_WORK/daniel/project/BRUKER_data_full_organized_new` as the input to the script.
 
 **Before (original multi-echo fMRI image):**
 ![image](https://user-images.githubusercontent.com/97412514/180833491-160694f1-5bc6-47d3-b550-d652538f4a39.png)
@@ -110,9 +114,10 @@ BRUKER_data_reoriented_with_masks
                 └── sub-2205094_ses-1_run-1_bold.nii.gz
  ```
  
+An example is the `/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented_with_masks` directory in Alex's samos account, which has masks of the brain from the fMRI images in `/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented`.
+ 
  **Masked brain:**
  ![image](https://user-images.githubusercontent.com/97412514/180834916-cee38cf5-0087-4317-b73d-eece005c7983.png)
-
 
 ### Process the Multi-Echo fMRI Images and Extract the Brain
 
@@ -136,6 +141,9 @@ BRUKER_data_reoriented_single_echoes
 
 Notice that this script outputs the images in a BIDS format.
 
+An example output is the `/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks` directory in Alex's samos account which had `/mnt/paros_WORK/daniel/project/BRUKER_data_reoriented_with_masks` as the input to the script.
+
+
 **Before (reoriented multi-echo fMRI image):**
 ![image](https://user-images.githubusercontent.com/97412514/180833796-aece4c6e-7998-4cb7-a6e5-c065a9d111cd.png)
 **After (reoriented single-echo brain only fMRI image):**
@@ -145,9 +153,11 @@ Notice that this script outputs the images in a BIDS format.
 
 Use the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) bash script to preprocess the fMRI images using RABIES. The script will also provide a copy of itself along with the time it took to run in a `preprocess.txt` text file in the project folder. Change the `bids_folder` varible to the path of the input BIDS directory that contains the reoriented fMRI images that have been processed to a single echo and contain only the brain (created in the prevous step). Change the `project_folder` varible to the path of a directory that will contain all the RABIES outputs and information regarding preprocessing, confound correction, and analysis for the images in the `bids_folder` directory. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed.
 
-After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags.
+After preprocessing (around 4 hours), use FSLeyes to view the subject fMRI images in the `commonspace_bold` directory with the anatomical template in the `commonspace_resampled_template:` directory of the `bold_dataskink` directory in the `preprocess_outputs` directory of your project folder to make sure that registration occured correctly. The call to RABIES may in [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) may need to be changed if registration does not work well. I find the best RABIES preprocess call is with the `--commonspace_masking` and `--coreg_masking` flags. The RABIES documentation can be found [here](https://rabies.readthedocs.io/en/stable/).
 
-RABIES uses the DSURQE mouse atlas for preprocessing, confound correction, and analysis.
+RABIES uses the DSURQE mouse atlas for preprocessing, confound correction, and analysis. Info about the DSURQE atlas can be found [here](http://repo.mouseimaging.ca/repo/DSURQE_40micron/).
+
+An example of preprocess outputs is the `preprocess_outputs` directory in the `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1` directory in Alex's samos account, which took `/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks` as the input BIDs. A copy of the script that did the preprocessing that also includes the duration of the script at the bottom is the `preprocess.txt` file in `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1`.
 
 **Successful preprocessing:**
 
@@ -160,6 +170,8 @@ Commonspace BOLD with commonspace labels:
 
 Use the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) bash script to run confound correction on the fMRI images using RABIES. The script will also provide a copy of itself along with the time it took to run in a `confound_cor.txt` text file in the project folder. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script that produced the preprocessed fMRI images that you want to run confound correction on. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed. The confound corrected images will be in the `cleaned_timeseries` directory in the `confound_correction_datasink` in the `confound_cor_outputs` directory in the project folder.
 
+An example of confound correction outputs is the `confound_cor_outputs` directory in the `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1` directory in Alex's samos account, which took `/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks` as the input BIDs. A copy of the script that did the confound correction that also includes the duration of the script at the bottom is the `confound_cor.txt` file in `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1`.
+
 **Confound corrected BOLD:**
 ![image](https://user-images.githubusercontent.com/97412514/180837415-79580318-8d80-4ffd-ac68-d621b37df426.png)
 
@@ -168,6 +180,8 @@ Use the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project
 Use the [analysis](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/analysis) bash script to obtain functional connectomes from the fMRI images using rabies. The script will also provide a copy of itself along with the time it took to run in an `analysis.txt` text file in the project folder. Change the `bids_folder` and `project_folder` variables to be the same as those in the [preprocess_2](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/preprocess_2) script and the [confound_correction](https://github.com/danielsunjin/Daniel-REU-Project-Files/blob/main/fMRI_processing_scripts/confound_correction) script that produced the preprocessed, confound corrected fMRI images that you want to get connectomes from. Note that in the RABIES call, you may also need to change the path to where the RABIES sif file is installed.
 
 CSV files containing the functional connectomes will be in the `matrix_data_file` directory in the `analysis_datasink` directory in the `analysis_outputs` directory of the project folder. Figures of the matrices will be in the `matrix_fig` directory in the `analysis_datasink` directory.
+
+An example of analysis outputs is the `analysis_outputs` directory in the `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1` directory in Alex's samos account, which took `/mnt/paros_WORK/daniel/project/BRUKER_data_single_echos_using_masks` as the input BIDs. A copy of the script that did the analysis that also includes the duration of the script at the bottom is the `analysis.txt` file in `/mnt/paros_WORK/daniel/project/pipeline_BRUKER_data_copy_1`.
 
 **Functional connectivity matrix example:**
 
@@ -233,7 +247,7 @@ The important scripts are:
 - `process_mGE` (combines multi echoes without using a mask)
 - `process_mGE_with_masks` (combines multi echoes with a mask)
 - `split_echo.py` (splits multi echo fMRI images)
-- `preprocess`, `preprocess_2`, `preprocess_3` (RABIES preprocess scripts that have different RABIES flags)
+- `preprocess`, `preprocess_2`, `preprocess_3`, `preprocess_4` (RABIES preprocess scripts that have different RABIES flags)
 - `confound_correction` (RABIES confound correction script)
 - `analysis` (RABIES analysis script)
 
