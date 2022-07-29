@@ -262,5 +262,8 @@ The important scripts are:
 
 The unprocessed, straight from BRUKER MRI images are in the `BRUKER` directory in `Documents/Daniel`. The `pipeline_syn_rigid_syn_coreg_masked` and `pipeline_BRUKER_data_copy_1` directories mentioned in the previous section are in `Documents/Daniel`. The `Archive` and `agesexgene` directories that include the scripts for vertex screening and SCCA are in `Documents/Daniel`. The `new_complete_FC_analysis` directory that conatins all the scripts and files for analyzing fear conditioning data is in `Documents/Daniel`. My poster powerpoints and pdfs are also in `Documents/Daniel`. Functional connectomes of 15 APOE2 mice are in `FC_matrices` in `Documents/Daniel`. The fMRI processing scripts can be found in `fMRI_processing_scripts` in `Documents/Daniel`. The excel sheet that matches RABIES output region indices to the DSURQE atlas region indices `index_to_region.xlsx` can be found in `Documents/Daniel`.
 
+## Using Chass Symmetric3 Atlas With RABIES
+
+The `preprocess` and `preprocess_4` scripts in the `/mnt/paros_WORK/daniel/project` directory in Alex's samos account attempt to use the chass symmetric 3 atlas to preprocess the 220404 and 220509 mice fMRI images (that have been reorient, echo-combined, and skull-stripped) in the `complete_project_data` directory in `/mnt/paros_WORK/daniel/project`. The chass symmetric 3 atlas is in `/mnt/paros_WORK/daniel/project/chass_symmetric3` in samos and in `/Users/daniel/Documents/Daniel/chass_symmetric3` locally. Masks of the white matter regions, csf regions, and vascular regions were made so that RABIES can use the chass symmetric 3 atlas using the `get_regions_mask.py` script found in `/Users/daniel/Documents/Daniel` locally. 
 
 
