@@ -266,4 +266,12 @@ The unprocessed, straight from BRUKER MRI images are in the `BRUKER` directory i
 
 The `preprocess` and `preprocess_4` scripts in the `/mnt/paros_WORK/daniel/project` directory in Alex's samos account attempt to use the chass symmetric 3 atlas to preprocess the 220404 and 220509 mice fMRI images (that have been reorient, echo-combined, and skull-stripped) in the `complete_project_data` directory in `/mnt/paros_WORK/daniel/project`. The chass symmetric 3 atlas is in `/mnt/paros_WORK/daniel/project/chass_symmetric3` in samos and in `/Users/daniel/Documents/Daniel/chass_symmetric3` locally. Masks of the white matter regions, csf regions, and vascular regions were made so that RABIES can use the chass symmetric 3 atlas using the `get_regions_mask.py` script found in `/Users/daniel/Documents/Daniel` locally. In `get_regions_mask.py`, list the labels of the regions (differentiating left and right) in the chass symmetric 3 template that you want to include in the mask in the `labels_list` variable to get a mask that includes those regions. In the `/mnt/paros_WORK/daniel/project` directory in samos, `pipeline` directories that include `chass_atlas` in the name are ones where the chass atlas was used by RABIES. 
 
+Chass atlas region indices for wm: 118, 119, 120,121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 150, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139, 1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1150
+
+Chass atlas region indices for csf: 148, 152, 1148, 1152
+
+Chass atlas region indices for vascular: 161, 1161
+
+It is important to note that the vertex screening and SCCA scripts that I use do not curently work with the chass atlas.
+
 
