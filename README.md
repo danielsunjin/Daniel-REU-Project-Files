@@ -274,6 +274,6 @@ Chass atlas region indices for vascular: 161, 1161
 
 It is important to note that the vertex screening and SCCA scripts that I use do not curently work with the chass atlas.
 
-Note: there was a problem with registration because because the atlas axis were wrong. In `chass_symmetric3` in samos, I reoriented the template images, labels, and masks so that the axes are correct. This should fix the issue. The most recent attempt at preprocessing with the chass atlas are in the `pipeline_chass_atlas_all_subjects` directory in `/mnt/paros_WORK/daniel/project` in samos.
+Note: there was a problem with registration because because the atlas axis were wrong. In `chass_symmetric3` in samos, I reoriented the template images, labels, and masks so that the axes are correct. This should fix the issue. The most recent attempt at preprocessing with the chass atlas are using the `preprocess` script to create the `pipeline_chass_atlas_all_subjects` directory in `/mnt/paros_WORK/daniel/project` in samos.
 
 
